@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { Search, Menu, User, ShoppingBag, Printer, ChevronRight } from 'lucide-react'
+import { Search, Menu, User, ShoppingBag, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
@@ -21,23 +21,20 @@ export default function Layout() {
         className={cn(
           'fixed top-0 z-50 w-full transition-all duration-300',
           isScrolled
-            ? 'bg-background/80 backdrop-blur-md border-b shadow-sm py-3'
+            ? 'bg-background/90 backdrop-blur-md border-b shadow-sm py-3'
             : 'bg-transparent py-5',
         )}
       >
         <div className="container mx-auto px-4 flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-primary text-primary-foreground p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
-              <Printer className="w-6 h-6" />
-            </div>
-            <span
+          <Link to="/" className="flex items-center group">
+            <img
+              src="https://img.usecurling.com/i?q=j2d+brand+logo&shape=lineal-color&color=multicolor"
+              alt="Gráfica J2D Logo"
               className={cn(
-                'text-xl font-extrabold tracking-tight transition-colors',
-                isScrolled ? 'text-foreground' : 'text-white md:text-foreground', // White on hero for mobile, otherwise default
+                'h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105',
+                !isScrolled && 'brightness-0 invert drop-shadow-md', // White version when at top
               )}
-            >
-              Gráfica J2D
-            </span>
+            />
           </Link>
 
           <div className="hidden md:flex flex-1 max-w-xl mx-auto relative group">
@@ -54,7 +51,7 @@ export default function Layout() {
               variant="ghost"
               className={cn(
                 'hidden lg:flex transition-colors',
-                !isScrolled && 'md:text-white/90 hover:text-white hover:bg-white/10',
+                !isScrolled && 'text-white/90 hover:text-white hover:bg-white/10',
               )}
             >
               Ajuda
@@ -63,8 +60,7 @@ export default function Layout() {
               variant="outline"
               className={cn(
                 'rounded-full transition-all duration-300 hover:bg-primary hover:text-primary-foreground',
-                !isScrolled &&
-                  'md:border-white/30 md:text-white md:hover:bg-white md:hover:text-primary',
+                !isScrolled && 'border-white/30 text-white hover:bg-white hover:text-[#2D1B69]',
               )}
             >
               <User className="w-4 h-4 mr-2" />
@@ -72,7 +68,7 @@ export default function Layout() {
             </Button>
             <Button
               size="icon"
-              className="rounded-full bg-[#bef264] text-black hover:bg-[#a3e635] hover:scale-105 transition-all"
+              className="rounded-full bg-[#bef264] text-[#1a2e05] hover:bg-[#a3e635] hover:scale-105 transition-all shadow-md"
             >
               <ShoppingBag className="w-4 h-4" />
             </Button>
@@ -90,9 +86,12 @@ export default function Layout() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <SheetHeader>
-                  <SheetTitle className="text-left flex items-center gap-2">
-                    <Printer className="w-5 h-5 text-primary" />
-                    Gráfica J2D
+                  <SheetTitle className="text-left flex items-center">
+                    <img
+                      src="https://img.usecurling.com/i?q=j2d+brand+logo&shape=lineal-color&color=multicolor"
+                      alt="Gráfica J2D Logo"
+                      className="h-8 w-auto object-contain"
+                    />
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-4 mt-8">
@@ -110,7 +109,7 @@ export default function Layout() {
                       </Link>
                     ))}
                   </div>
-                  <Button className="w-full rounded-full bg-[#bef264] text-black hover:bg-[#a3e635]">
+                  <Button className="w-full rounded-full bg-[#bef264] text-[#1a2e05] hover:bg-[#a3e635]">
                     Ver Carrinho
                   </Button>
                 </nav>
@@ -127,15 +126,17 @@ export default function Layout() {
       <footer className="bg-slate-50 border-t py-12 md:py-16 dark:bg-card">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <Printer className="w-6 h-6 text-primary" />
-              <span className="text-xl font-extrabold tracking-tight">Gráfica J2D</span>
+            <Link to="/" className="flex items-center mb-6">
+              <img
+                src="https://img.usecurling.com/i?q=j2d+brand+logo&shape=lineal-color&color=multicolor"
+                alt="Gráfica J2D Logo"
+                className="h-8 w-auto object-contain grayscale opacity-80 hover:grayscale-0 transition-all duration-300"
+              />
             </Link>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-6 pr-4">
               Adesivos, banners, acrílico, MDF e muito mais — do pedido à entrega, sem complicação.
             </p>
           </div>
-
           <div>
             <h4 className="font-semibold mb-4 text-foreground">Categorias</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -154,19 +155,8 @@ export default function Layout() {
                   Cortes em Acrílico
                 </Link>
               </li>
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
-                  Peças em MDF
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
-                  Papelaria Corporativa
-                </Link>
-              </li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-semibold mb-4 text-foreground">Institucional</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -182,22 +172,11 @@ export default function Layout() {
               </li>
               <li>
                 <Link to="/" className="hover:text-primary transition-colors">
-                  Prazos e Entregas
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
                   Política de Privacidade
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
-                  Contato
                 </Link>
               </li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-semibold mb-4 text-foreground">Atendimento</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -207,9 +186,6 @@ export default function Layout() {
               <li className="font-medium text-primary">(11) 99999-9999</li>
             </ul>
           </div>
-        </div>
-        <div className="container mx-auto px-4 mt-12 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Gráfica J2D. Todos os direitos reservados.
         </div>
       </footer>
     </div>
