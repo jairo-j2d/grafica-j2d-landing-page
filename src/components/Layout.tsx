@@ -1,105 +1,61 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom'
-import { SidebarNav } from '@/components/SidebarNav'
-import { Menu, LayoutDashboard, LogIn, LogOut } from 'lucide-react'
+import { Outlet } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
-import { RegistrationModal } from '@/components/RegistrationModal'
-import bgImg from '@/assets/geometric-5b34b.png'
-import useMainStore from '@/stores/useMainStore'
+import { Menu, Bell } from 'lucide-react'
+import logoImg from '@/assets/logo-j2d-27bae.png'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { useState } from 'react'
+import { SidebarNav } from './SidebarNav'
 
 export default function Layout() {
-  const { isAdmin, toggleAdmin } = useMainStore()
-  const navigate = useNavigate()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-slate-50/50 overflow-hidden font-sans">
-      <div
-        className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none bg-cover bg-center bg-fixed mix-blend-multiply"
-        style={{ backgroundImage: `url(${bgImg})` }}
-      />
+    <div className="flex min-h-screen w-full bg-slate-50">
+      {/* Desktop Sidebar */}
+      <aside className="hidden w-64 flex-col md:flex shrink-0">
+        <SidebarNav />
+      </aside>
 
-      <header className="relative z-10 bg-white/80 backdrop-blur-md border-b border-violet-100 shadow-sm h-16 flex items-center justify-between px-4 md:px-6 shrink-0">
-        <div className="flex items-center gap-2">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-violet-900 mr-2">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="left"
-              className="p-0 w-72 bg-white/95 backdrop-blur-md border-r-violet-100"
-            >
-              <div className="sr-only">
-                <SheetTitle>Menu de Navegação</SheetTitle>
-              </div>
-              <SidebarNav />
-            </SheetContent>
-          </Sheet>
+      {/* Main Content */}
+      <main className="flex flex-1 flex-col overflow-hidden">
+        {/* Header */}
+        <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4 md:px-6">
+          <div className="flex items-center md:hidden">
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="mr-2 text-slate-600">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle navigation menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-64 p-0">
+                <SidebarNav onItemClick={() => setIsMobileMenuOpen(false)} />
+              </SheetContent>
+            </Sheet>
+            <div className="flex items-center gap-2">
+              <img src={logoImg} alt="Gráfica J2D Logo" className="h-6 w-6 object-contain" />
+              <span className="font-bold text-purple-900">Gráfica J2D</span>
+            </div>
+          </div>
 
-          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <img
-              src="/LOGO J2D.png"
-              className="h-10 w-10 object-contain"
-              alt="Logo Gráfica J2D"
-              onError={(e) => {
-                e.currentTarget.src =
-                  'https://img.usecurling.com/i?q=printing+logo&color=violet&shape=fill'
-              }}
-            />
-            <span className="font-bold text-xl text-violet-950 tracking-tight hidden sm:inline-block">
-              Gráfica J2D
-            </span>
-          </Link>
-        </div>
+          <div className="hidden md:flex flex-1" />
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          {isAdmin ? (
-            <>
-              <Button
-                variant="outline"
-                className="hidden md:flex border-violet-200 text-violet-700 hover:bg-violet-50"
-                onClick={() => navigate('/dashboard')}
-              >
-                <LayoutDashboard className="h-4 w-4 mr-2" />
-                Dashboard
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-slate-500 hover:text-red-600 hover:bg-red-50 transition-colors"
-                onClick={() => {
-                  toggleAdmin()
-                  navigate('/')
-                }}
-                title="Sair do modo administrador"
-              >
-                <LogOut className="h-5 w-5" />
-              </Button>
-            </>
-          ) : (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-slate-500 hover:text-violet-700 hover:bg-violet-50 transition-colors"
-              onClick={toggleAdmin}
-              title="Acesso Restrito Admin"
-            >
-              <LogIn className="h-5 w-5" />
+          <div className="ml-auto flex items-center gap-4">
+            <Button variant="ghost" size="icon" className="text-slate-500 hover:text-purple-700">
+              <Bell className="h-5 w-5" />
+              <span className="sr-only">Notifications</span>
             </Button>
-          )}
-          <RegistrationModal />
-        </div>
-      </header>
+            <div className="h-8 w-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm">
+              JD
+            </div>
+          </div>
+        </header>
 
-      <div className="flex flex-1 relative z-10 overflow-hidden">
-        <div className="hidden md:block h-full shrink-0">
-          <SidebarNav />
-        </div>
-        <main className="flex-1 overflow-y-auto w-full relative">
+        {/* Page Content */}
+        <div className="flex-1 overflow-auto p-4 md:p-6">
           <Outlet />
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }

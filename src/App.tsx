@@ -1,24 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Layout from '@/components/Layout'
-import Index from '@/pages/Index'
-import Dashboard from '@/pages/Dashboard'
-import NotFound from '@/pages/NotFound'
-import { Toaster } from '@/components/ui/toaster'
-import { MainStoreProvider } from '@/stores/useMainStore'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Index from './pages/Index'
+import Dashboard from './pages/Dashboard'
+import Layout from './components/Layout'
+import NotFound from './pages/NotFound'
+import { Toaster } from './components/ui/toaster'
 
-export default function App() {
+function App() {
   return (
-    <MainStoreProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Index />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-        <Toaster />
-      </BrowserRouter>
-    </MainStoreProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/pedidos" element={<Dashboard />} />
+          <Route path="/clientes" element={<Dashboard />} />
+          <Route path="/configuracoes" element={<Dashboard />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster />
+    </Router>
   )
 }
+export default App
