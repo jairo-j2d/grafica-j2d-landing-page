@@ -1,12 +1,16 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { SidebarNav } from '@/components/SidebarNav'
-import { Menu } from 'lucide-react'
+import { Menu, LayoutDashboard, LogIn, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import { RegistrationModal } from '@/components/RegistrationModal'
 import bgImg from '@/assets/geometric-5b34b.png'
+import useMainStore from '@/stores/useMainStore'
 
 export default function Layout() {
+  const { isAdmin, toggleAdmin } = useMainStore()
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-screen flex flex-col relative bg-slate-50/50 overflow-hidden font-sans">
       <div
@@ -33,17 +37,59 @@ export default function Layout() {
             </SheetContent>
           </Sheet>
 
-          <img
-            src="https://img.usecurling.com/i?q=printing+logo&color=violet&shape=fill"
-            className="h-8 w-8 object-contain"
-            alt="Logo Gráfica J2D"
-          />
-          <span className="font-bold text-xl text-violet-950 tracking-tight hidden sm:inline-block">
-            Gráfica J2D
-          </span>
+          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <img
+              src="/LOGO J2D.png"
+              className="h-10 w-10 object-contain"
+              alt="Logo Gráfica J2D"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://img.usecurling.com/i?q=printing+logo&color=violet&shape=fill'
+              }}
+            />
+            <span className="font-bold text-xl text-violet-950 tracking-tight hidden sm:inline-block">
+              Gráfica J2D
+            </span>
+          </Link>
         </div>
 
-        <RegistrationModal />
+        <div className="flex items-center gap-2 sm:gap-3">
+          {isAdmin ? (
+            <>
+              <Button
+                variant="outline"
+                className="hidden md:flex border-violet-200 text-violet-700 hover:bg-violet-50"
+                onClick={() => navigate('/dashboard')}
+              >
+                <LayoutDashboard className="h-4 w-4 mr-2" />
+                Dashboard
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-slate-500 hover:text-red-600 hover:bg-red-50 transition-colors"
+                onClick={() => {
+                  toggleAdmin()
+                  navigate('/')
+                }}
+                title="Sair do modo administrador"
+              >
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-slate-500 hover:text-violet-700 hover:bg-violet-50 transition-colors"
+              onClick={toggleAdmin}
+              title="Acesso Restrito Admin"
+            >
+              <LogIn className="h-5 w-5" />
+            </Button>
+          )}
+          <RegistrationModal />
+        </div>
       </header>
 
       <div className="flex flex-1 relative z-10 overflow-hidden">

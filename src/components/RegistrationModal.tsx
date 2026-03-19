@@ -19,23 +19,44 @@ import {
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useToast } from '@/hooks/use-toast'
+import useMainStore from '@/stores/useMainStore'
 
 const PRODUCTS = ['Adesivos', 'Banners', 'Acrílico', 'MDF', 'Brindes']
 
 export function RegistrationModal() {
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
+  const { addClient } = useMainStore()
 
   const [preferences, setPreferences] = useState<string[]>([])
+  const [origem, setOrigem] = useState<string>('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    const target = e.target as typeof e.target & {
+      nome: { value: string }
+      email: { value: string }
+      whatsapp: { value: string }
+      cidade: { value: string }
+    }
+
+    addClient({
+      nome: target.nome.value,
+      email: target.email.value,
+      whatsapp: target.whatsapp.value,
+      cidade: target.cidade.value,
+      origem: origem || 'outros',
+      preferences,
+    })
+
     toast({
       title: 'Cadastro realizado!',
       description: 'Suas informações foram salvas com sucesso.',
     })
     setOpen(false)
     setPreferences([])
+    setOrigem('')
   }
 
   return (
@@ -109,7 +130,7 @@ export function RegistrationModal() {
               <Label htmlFor="origem" className="text-violet-900 font-semibold">
                 Como chegou até nós?
               </Label>
-              <Select required>
+              <Select required value={origem} onValueChange={setOrigem}>
                 <SelectTrigger id="origem" className="border-violet-200 focus:ring-violet-500">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
