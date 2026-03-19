@@ -3,6 +3,7 @@ import { SidebarNav } from '@/components/SidebarNav'
 import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
+import { RegistrationModal } from '@/components/RegistrationModal'
 import bgImg from '@/assets/geometric-5b34b.png'
 
 export default function Layout() {
@@ -13,7 +14,7 @@ export default function Layout() {
         style={{ backgroundImage: `url(${bgImg})` }}
       />
 
-      <header className="relative z-10 bg-white/80 backdrop-blur-md border-b border-violet-100 shadow-sm h-16 flex items-center px-4 md:px-6 shrink-0">
+      <header className="relative z-10 bg-white/80 backdrop-blur-md border-b border-violet-100 shadow-sm h-16 flex items-center justify-between px-4 md:px-6 shrink-0">
         <div className="flex items-center gap-2">
           <Sheet>
             <SheetTrigger asChild>
@@ -37,8 +38,12 @@ export default function Layout() {
             className="h-8 w-8 object-contain"
             alt="Logo Gráfica J2D"
           />
-          <span className="font-bold text-xl text-violet-950 tracking-tight">Gráfica J2D</span>
+          <span className="font-bold text-xl text-violet-950 tracking-tight hidden sm:inline-block">
+            Gráfica J2D
+          </span>
         </div>
+
+        <RegistrationModal />
       </header>
 
       <div className="flex flex-1 relative z-10 overflow-hidden">

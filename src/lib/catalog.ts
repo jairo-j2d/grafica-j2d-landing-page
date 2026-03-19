@@ -1,47 +1,19 @@
 import {
-  CreditCard,
-  FileText,
+  StickyNote,
   Image as ImageIcon,
-  Layers,
+  Box,
+  LayoutTemplate,
+  Gift,
   MapPin,
-  Package,
-  Tag,
+  Layers,
+  CreditCard,
 } from 'lucide-react'
 
 export const catalog = [
   {
-    id: 'cartoes',
-    name: 'Cartões de Visita',
-    icon: FileText,
-    image: 'https://img.usecurling.com/p/800/600?q=business%20cards',
-    description: 'Deixe sua marca por onde passar com nossos cartões de visita de alta qualidade.',
-    subcategories: [
-      {
-        id: 'cartoes-couche',
-        name: 'Couchê 250g/300g',
-        image: 'https://img.usecurling.com/p/400/300?q=paper%20texture&color=purple',
-        description:
-          'O papel mais popular do mercado, excelente custo-benefício com brilho na medida certa.',
-        dependencies: [
-          'Tamanho Padrão (9x5cm)',
-          'Laminação Brilho ou Fosca',
-          'Corte Reto ou Cantos Arredondados',
-        ],
-      },
-      {
-        id: 'cartoes-premium',
-        name: 'Linha Premium',
-        image: 'https://img.usecurling.com/p/400/300?q=luxury%20paper&color=purple',
-        description:
-          'Acabamentos sofisticados como hot stamping, verniz localizado e bordas coloridas.',
-        dependencies: ['Papel Especial 350g', 'Verniz Localizado', 'Hot Stamping Dourado/Prateado'],
-      },
-    ],
-  },
-  {
     id: 'adesivos',
     name: 'Adesivos',
-    icon: Tag,
+    icon: StickyNote,
     image: 'https://img.usecurling.com/p/800/600?q=stickers',
     description: 'Adesivos personalizados para embalagens, vitrines, veículos e muito mais.',
     subcategories: [
@@ -63,7 +35,7 @@ export const catalog = [
   },
   {
     id: 'banners',
-    name: 'Banners e Lonas',
+    name: 'Banners',
     icon: ImageIcon,
     image: 'https://img.usecurling.com/p/800/600?q=banner%20printing',
     description: 'Destaque sua mensagem em grandes formatos com alta resolução.',
@@ -78,9 +50,55 @@ export const catalog = [
     ],
   },
   {
+    id: 'acrilico',
+    name: 'Acrílico',
+    icon: Box,
+    image: 'https://img.usecurling.com/p/800/600?q=acrylic',
+    description: 'Peças sofisticadas em acrílico cortado a laser com alta precisão.',
+    subcategories: [
+      {
+        id: 'trofeus',
+        name: 'Troféus e Homenagens',
+        image: 'https://img.usecurling.com/p/400/300?q=acrylic%20trophy',
+        description: 'Premiações em acrílico com gravação a laser.',
+        dependencies: ['Acrílico 3mm a 10mm', 'Gravação a Laser', 'Impressão UV'],
+      },
+      {
+        id: 'placas-acrilico',
+        name: 'Placas de Sinalização',
+        image: 'https://img.usecurling.com/p/400/300?q=acrylic%20sign',
+        description: 'Placas corporativas elegantes e duráveis.',
+        dependencies: ['Adesivação Interna', 'Espaçadores Inox', 'Alta Durabilidade'],
+      },
+    ],
+  },
+  {
+    id: 'mdf',
+    name: 'MDF',
+    icon: LayoutTemplate,
+    image: 'https://img.usecurling.com/p/800/600?q=wood%20texture',
+    description: 'Soluções criativas em MDF com corte a laser e acabamento impecável.',
+    subcategories: [
+      {
+        id: 'caixas-mdf',
+        name: 'Caixas Personalizadas',
+        image: 'https://img.usecurling.com/p/400/300?q=wooden%20box',
+        description: 'Caixas para presentes, bebidas e organização.',
+        dependencies: ['Corte a Laser', 'Gravação', 'MDF 3mm'],
+      },
+      {
+        id: 'displays',
+        name: 'Displays de Mesa',
+        image: 'https://img.usecurling.com/p/400/300?q=wooden%20display',
+        description: 'Displays e expositores para pontos de venda.',
+        dependencies: ['Encaixes Perfeitos', 'Pintura Opcional', 'MDF 6mm'],
+      },
+    ],
+  },
+  {
     id: 'brindes',
-    name: 'Brindes Promocionais',
-    icon: Package,
+    name: 'Brindes',
+    icon: Gift,
     image: 'https://img.usecurling.com/p/800/600?q=corporate%20gifts',
     description: 'Fidelize clientes com brindes úteis e personalizados com sua marca.',
     subcategories: [
