@@ -1,117 +1,89 @@
-/* Global styles - Theme, font, utilities, animations and global components */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Gráfica J2D Color Palette */
     --background: 0 0% 100%;
-    --foreground: 254 59% 10%;
-
+    --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 254 59% 10%;
-
+    --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 254 59% 10%;
-
-    /* Primary: Deep Dark Purple #2D1B69 */
-    --primary: 254 59% 26%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary: Vibrant Purple #6B21A8 */
-    --secondary: 273 67% 39%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 210 40% 96%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    /* Accent: Lime Green #bef264 for soft accents (CTA will use direct hex for absolute control) */
-    --accent: 78 86% 67%;
-    --accent-foreground: 254 59% 10%;
-
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 254 59% 26%;
-
-    --radius: 0.75rem; /* 12px for modern, friendly feel */
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 254 59% 10%;
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
-    --card: 254 59% 14%;
+    --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
-    --popover: 254 59% 14%;
+    --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
-    --primary: 273 67% 60%;
-    --primary-foreground: 254 59% 10%;
-
-    --secondary: 254 59% 26%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 254 59% 20%;
-    --muted-foreground: 215.4 16.3% 65%;
-
-    --accent: 78 86% 67%;
-    --accent-foreground: 254 59% 10%;
-
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 254 59% 20%;
-    --input: 254 59% 20%;
-    --ring: 273 67% 60%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262.1 83.3% 57.8%;
   }
+}
 
+@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
-
-  section[aria-label='Notifications alt+T'] {
-    padding: 0 !important;
-    margin: 0 !important;
+    @apply bg-background text-foreground antialiased;
   }
 }
 
 @layer utilities {
-  @keyframes float {
-    0%,
-    100% {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
       transform: translateY(0);
     }
-    50% {
-      transform: translateY(-15px);
-    }
-  }
-
-  @keyframes pulse-soft {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(190, 242, 100, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 20px 10px rgba(190, 242, 100, 0);
-    }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-soft {
-    animation: pulse-soft 2s infinite;
   }
 }

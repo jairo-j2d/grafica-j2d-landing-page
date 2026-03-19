@@ -1,263 +1,109 @@
-export const catalogData = [
+import {
+  CreditCard,
+  FileText,
+  Image as ImageIcon,
+  Layers,
+  MapPin,
+  Package,
+  Tag,
+} from 'lucide-react'
+
+export const catalog = [
   {
-    section: 'Corte e gravação a laser',
-    categories: [
+    id: 'cartoes',
+    name: 'Cartões de Visita',
+    icon: FileText,
+    image: 'https://img.usecurling.com/p/800/600?q=business%20cards',
+    description: 'Deixe sua marca por onde passar com nossos cartões de visita de alta qualidade.',
+    subcategories: [
       {
-        id: 'corte-acrilico',
-        name: 'Acrílico',
-        items: [
-          {
-            name: 'Letreiro em Acrílico',
-            price: '120,00',
-            img: 'https://img.usecurling.com/p/400/300?q=acrylic+sign&color=cyan',
-          },
-          {
-            name: 'Caixa em Acrílico',
-            price: '65,00',
-            img: 'https://img.usecurling.com/p/400/300?q=acrylic+box&color=blue',
-          },
+        id: 'cartoes-couche',
+        name: 'Couchê 250g/300g',
+        image: 'https://img.usecurling.com/p/400/300?q=paper%20texture&color=purple',
+        description:
+          'O papel mais popular do mercado, excelente custo-benefício com brilho na medida certa.',
+        dependencies: [
+          'Tamanho Padrão (9x5cm)',
+          'Laminação Brilho ou Fosca',
+          'Corte Reto ou Cantos Arredondados',
         ],
       },
       {
-        id: 'corte-mdf',
-        name: 'MDF',
-        items: [
-          {
-            name: 'Caixa em MDF',
-            price: '45,00',
-            img: 'https://img.usecurling.com/p/400/300?q=mdf+box&color=orange',
-          },
-        ],
-      },
-      {
-        id: 'corte-abs',
-        name: 'ABS',
-        items: [
-          {
-            name: 'Placa ABS',
-            price: '35,00',
-            img: 'https://img.usecurling.com/p/400/300?q=abs+sign&color=gray',
-          },
-        ],
-      },
-      {
-        id: 'corte-ps',
-        name: 'PS',
-        items: [
-          {
-            name: 'Corte PS Especial',
-            price: '80,00',
-            img: 'https://img.usecurling.com/p/400/300?q=plastic+cutout&color=white',
-          },
-        ],
-      },
-      {
-        id: 'corte-garrafas',
-        name: 'Garrafas',
-        items: [
-          {
-            name: 'Garrafa Gravada',
-            price: '40,00',
-            img: 'https://img.usecurling.com/p/400/300?q=engraved+bottle&color=black',
-          },
-        ],
+        id: 'cartoes-premium',
+        name: 'Linha Premium',
+        image: 'https://img.usecurling.com/p/400/300?q=luxury%20paper&color=purple',
+        description:
+          'Acabamentos sofisticados como hot stamping, verniz localizado e bordas coloridas.',
+        dependencies: ['Papel Especial 350g', 'Verniz Localizado', 'Hot Stamping Dourado/Prateado'],
       },
     ],
   },
   {
-    section: 'Impressão Digital',
-    categories: [
+    id: 'adesivos',
+    name: 'Adesivos',
+    icon: Tag,
+    image: 'https://img.usecurling.com/p/800/600?q=stickers',
+    description: 'Adesivos personalizados para embalagens, vitrines, veículos e muito mais.',
+    subcategories: [
       {
-        id: 'impressao-banners',
-        name: 'Banners',
-        items: [
-          {
-            name: 'Banner Lona Fosca',
-            price: '50,00',
-            img: 'https://img.usecurling.com/p/400/300?q=banner&color=blue',
-          },
-        ],
+        id: 'adesivo-papel',
+        name: 'Adesivo de Papel',
+        image: 'https://img.usecurling.com/p/400/300?q=paper%20roll',
+        description: 'Ideal para uso interno e embalagens que não vão à geladeira.',
+        dependencies: ['Meio Corte (Cartela)', 'Corte Reto', 'Impressão a Laser'],
       },
       {
-        id: 'impressao-adesivos',
-        name: 'Adesivos',
-        items: [
-          {
-            name: 'Adesivo Vinil Recorte',
-            price: '15,00',
-            img: 'https://img.usecurling.com/p/400/300?q=stickers&color=purple',
-          },
-          {
-            name: 'Adesivo Automotivo',
-            price: '110,00',
-            img: 'https://img.usecurling.com/p/400/300?q=car+wrap&color=black',
-          },
-        ],
+        id: 'adesivo-vinil',
+        name: 'Adesivo de Vinil',
+        image: 'https://img.usecurling.com/p/400/300?q=vinyl%20roll',
+        description: 'Resistente à água e intempéries, perfeito para uso externo.',
+        dependencies: ['Vinil Branco ou Transparente', 'Corte Especial', 'Resistência UV'],
       },
     ],
   },
   {
-    section: 'Sublimação',
-    categories: [
+    id: 'banners',
+    name: 'Banners e Lonas',
+    icon: ImageIcon,
+    image: 'https://img.usecurling.com/p/800/600?q=banner%20printing',
+    description: 'Destaque sua mensagem em grandes formatos com alta resolução.',
+    subcategories: [
       {
-        id: 'sublimacao-canecas',
+        id: 'banner-lona',
+        name: 'Banner em Lona Brilho',
+        image: 'https://img.usecurling.com/p/400/300?q=large%20print',
+        description: 'Tradicional banner com acabamento em bastão e cordão.',
+        dependencies: ['Impressão Eco-solvente', 'Acabamento Bastão/Cordão', 'Ilhós opcional'],
+      },
+    ],
+  },
+  {
+    id: 'brindes',
+    name: 'Brindes Promocionais',
+    icon: Package,
+    image: 'https://img.usecurling.com/p/800/600?q=corporate%20gifts',
+    description: 'Fidelize clientes com brindes úteis e personalizados com sua marca.',
+    subcategories: [
+      {
+        id: 'canetas',
+        name: 'Canetas Personalizadas',
+        image: 'https://img.usecurling.com/p/400/300?q=pens',
+        description: 'Vários modelos e cores para estampar a sua marca.',
+        dependencies: ['Tampografia', 'Impressão Digital UV', 'Embalagem Individual'],
+      },
+      {
+        id: 'canecas',
         name: 'Canecas',
-        items: [
-          {
-            name: 'Caneca Branca Personalizada',
-            price: '25,00',
-            img: 'https://img.usecurling.com/p/400/300?q=mug&color=white',
-          },
-        ],
-      },
-      {
-        id: 'sublimacao-garrafas',
-        name: 'Garrafas',
-        items: [
-          {
-            name: 'Garrafa Squeeze',
-            price: '35,00',
-            img: 'https://img.usecurling.com/p/400/300?q=bottle&color=cyan',
-          },
-        ],
-      },
-      {
-        id: 'sublimacao-camisas',
-        name: 'Camisas',
-        items: [
-          {
-            name: 'Camisa Algodão Estampada',
-            price: '35,00',
-            img: 'https://img.usecurling.com/p/400/300?q=t-shirt&color=black',
-          },
-        ],
-      },
-      {
-        id: 'sublimacao-bolsas',
-        name: 'Bolsas',
-        items: [
-          {
-            name: 'Bolsa Ecobag',
-            price: '22,00',
-            img: 'https://img.usecurling.com/p/400/300?q=tote+bag&color=white',
-          },
-        ],
-      },
-      {
-        id: 'sublimacao-bones',
-        name: 'Bonés',
-        items: [
-          {
-            name: 'Boné Bordado/Sublimado',
-            price: '20,00',
-            img: 'https://img.usecurling.com/p/400/300?q=cap&color=red',
-          },
-        ],
-      },
-      {
-        id: 'sublimacao-bags',
-        name: 'Bags',
-        items: [
-          {
-            name: 'Mochila Saco',
-            price: '18,00',
-            img: 'https://img.usecurling.com/p/400/300?q=drawstring+bag&color=blue',
-          },
-        ],
+        image: 'https://img.usecurling.com/p/400/300?q=mugs',
+        description: 'Canecas de porcelana, polímero e alumínio.',
+        dependencies: ['Sublimação', 'Transfer Laser', 'Resistente a microondas'],
       },
     ],
   },
-  {
-    section: 'Impressões',
-    categories: [
-      {
-        id: 'impressoes-apostilas',
-        name: 'Apostilas',
-        items: [
-          {
-            name: 'Apostila Espiral',
-            price: '25,00',
-            img: 'https://img.usecurling.com/p/400/300?q=spiral+notebook&color=white',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-livros',
-        name: 'Livros',
-        items: [
-          {
-            name: 'Livro Capa Dura',
-            price: '60,00',
-            img: 'https://img.usecurling.com/p/400/300?q=hardcover+book&color=blue',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-agendas',
-        name: 'Agendas',
-        items: [
-          {
-            name: 'Agenda Anual Corporativa',
-            price: '60,00',
-            img: 'https://img.usecurling.com/p/400/300?q=planner&color=green',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-bloquinhos',
-        name: 'Bloquinhos',
-        items: [
-          {
-            name: 'Bloco de Notas A5',
-            price: '10,00',
-            img: 'https://img.usecurling.com/p/400/300?q=notepad&color=white',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-rifas',
-        name: 'Rifas',
-        items: [
-          {
-            name: 'Talonário de Rifas',
-            price: '15,00',
-            img: 'https://img.usecurling.com/p/400/300?q=raffle+tickets&color=yellow',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-cartelas',
-        name: 'Cartelas',
-        items: [
-          {
-            name: 'Cartela de Bijuteria',
-            price: '30,00',
-            img: 'https://img.usecurling.com/p/400/300?q=jewelry+card&color=pink',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-taloes',
-        name: 'Talões',
-        items: [
-          {
-            name: 'Talão de Pedidos',
-            price: '18,00',
-            img: 'https://img.usecurling.com/p/400/300?q=receipt+book&color=white',
-          },
-        ],
-      },
-      {
-        id: 'impressoes-comandas',
-        name: 'Comandas',
-        items: [
-          {
-            name: 'Comanda Restaurante',
-            price: '12,00',
-            img: 'https://img.usecurling.com/p/400/300?q=restaurant+order+pad&color=gray',
-          },
-        ],
-      },
-    ],
-  },
+]
+
+export const usefulLinks = [
+  { id: 'atendimento', name: 'Atendimento', icon: MapPin },
+  { id: 'central-ajuda', name: 'Central de Ajuda', icon: Layers },
+  { id: 'pagamento', name: 'Formas de pagamento', icon: CreditCard },
 ]
