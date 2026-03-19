@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Briefcase, Headset, MonitorPlay, CreditCard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   Accordion,
   AccordionItem,
@@ -14,122 +12,141 @@ import { catalogData } from '@/lib/catalog'
 export default function Index() {
   const [searchParams] = useSearchParams()
   const activeCategory = searchParams.get('category')
-  const [openItems, setOpenItems] = useState<string[]>([])
 
   useEffect(() => {
     if (activeCategory) {
-      setOpenItems((prev) => (prev.includes(activeCategory) ? prev : [...prev, activeCategory]))
       setTimeout(() => {
         document
           .getElementById(`category-${activeCategory}`)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }, 150)
-    } else if (openItems.length === 0 && catalogData[0]?.categories[0]) {
-      setOpenItems([catalogData[0].categories[0].id])
     }
   }, [activeCategory])
 
   return (
-    <div className="flex flex-col w-full">
-      <section className="bg-slate-50 dark:bg-card border-b border-slate-200 dark:border-border/50 py-3">
-        <div className="container mx-auto px-4 flex flex-wrap justify-center gap-6 md:gap-12">
-          {[
-            { title: 'Nichos', icon: Briefcase },
-            { title: 'Atendimento', icon: Headset },
-            { title: 'Mídia', icon: MonitorPlay },
-            { title: 'Pagamento', icon: CreditCard },
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-              <item.icon className="w-4 h-4 text-[#2D1B69] dark:text-[#a3e635]" />
-              <span className="text-xs md:text-sm font-semibold uppercase tracking-wider">
-                {item.title}
+    <div className="flex flex-col w-full bg-[#F8FAFC] dark:bg-background pb-20">
+      <div className="w-full px-4 md:px-8 py-8 md:py-12 bg-white dark:bg-card border-b border-slate-200 dark:border-border/50">
+        <section className="w-full max-w-[1400px] mx-auto relative bg-gradient-to-r from-[#2D1B69] to-[#51369c] rounded-[2rem] overflow-hidden shadow-2xl h-[350px] md:h-[450px] flex items-center">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://img.usecurling.com/p/1200/600?q=halftone+dots&color=white')] mix-blend-overlay"></div>
+          <img
+            src="https://img.usecurling.com/p/800/800?q=students+smiling&color=purple"
+            alt="Banner"
+            className="absolute right-0 bottom-0 h-full w-1/2 object-cover object-left opacity-90 z-0 hidden lg:block"
+          />
+
+          <div className="relative z-10 px-8 md:px-16 max-w-2xl">
+            <div className="inline-block bg-[#bef264] text-[#1a2e05] font-black px-5 py-1.5 rounded-full text-sm md:text-base mb-6 -rotate-2 shadow-xl border-2 border-white/20">
+              Produtos a partir de R$ 5,25
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 tracking-tight drop-shadow-md">
+              Toda turma quer
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bef264] to-[#a3e635]">
+                deixar sua marca.
               </span>
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 mb-8 font-medium max-w-lg">
+              Personalizados que fazem sucesso no{' '}
+              <span className="font-bold border-b-2 border-[#bef264] pb-1">terceirão.</span>
+            </p>
+            <Button className="bg-[#bef264] hover:bg-[#a3e635] text-[#1a2e05] font-extrabold text-lg px-8 py-6 rounded-full shadow-lg transition-all hover:scale-105 hover:shadow-xl">
+              QUERO CONFERIR
+            </Button>
+          </div>
+        </section>
+      </div>
+
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 max-w-[1400px] mx-auto">
+          {catalogData.map((section, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col gap-8 animate-fade-in-up"
+              style={{ animationDelay: `${idx * 100}ms` }}
+            >
+              <h2 className="text-4xl font-light text-slate-800 dark:text-slate-100 text-center tracking-tight">
+                Linha <span className="font-semibold">{section.section}</span>
+              </h2>
+
+              <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-slate-100 dark:border-slate-800 p-6 md:p-8 flex flex-col h-full">
+                <div className="w-full h-[280px] md:h-[350px] bg-slate-100 dark:bg-slate-800 rounded-t-[150px] overflow-hidden mb-8 relative group cursor-pointer shadow-inner shrink-0">
+                  <img
+                    src={
+                      section.categories[0]?.items[0]?.img ||
+                      `https://img.usecurling.com/p/600/600?q=${encodeURIComponent(section.section)}`
+                    }
+                    alt={section.section}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2D1B69]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
+                    <span className="text-white font-bold tracking-widest uppercase text-sm bg-black/20 px-6 py-2 rounded-full backdrop-blur-sm">
+                      Ver destaques
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex-1">
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="w-full px-2"
+                    defaultValue={
+                      activeCategory && section.categories.some((c) => c.id === activeCategory)
+                        ? activeCategory
+                        : undefined
+                    }
+                  >
+                    {section.categories.map((cat, cIdx) => (
+                      <AccordionItem
+                        value={cat.id}
+                        key={cIdx}
+                        id={`category-${cat.id}`}
+                        className="border-b border-slate-100 dark:border-slate-800 last:border-0 scroll-m-32"
+                      >
+                        <AccordionTrigger className="hover:no-underline py-5 text-xl font-semibold text-slate-700 dark:text-slate-200 group">
+                          <span className="group-hover:text-[#2D1B69] dark:group-hover:text-[#a3e635] transition-colors">
+                            {cat.name}
+                          </span>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-6">
+                          <div className="grid gap-3 pt-2">
+                            {cat.items.map((item, iIdx) => (
+                              <div
+                                key={iIdx}
+                                className="flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group/item cursor-pointer"
+                              >
+                                <div className="flex items-center gap-4">
+                                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 shadow-sm">
+                                    <img
+                                      src={item.img}
+                                      alt={item.name}
+                                      className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-300"
+                                    />
+                                  </div>
+                                  <span className="font-semibold text-slate-700 dark:text-slate-200 group-hover/item:text-[#2D1B69] dark:group-hover/item:text-[#a3e635] text-base">
+                                    {item.name}
+                                  </span>
+                                </div>
+                                <div className="flex flex-col items-end pr-2">
+                                  <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider mb-0.5">
+                                    A partir de
+                                  </span>
+                                  <span className="text-base font-bold text-[#2D1B69] dark:text-[#a3e635]">
+                                    R$ {item.price}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-      </section>
-
-      <section className="w-full bg-white dark:bg-card border-b border-slate-200 dark:border-border/50 py-12 md:py-20 flex justify-center items-center">
-        <div className="container mx-auto px-4 text-center animate-fade-in-up">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2D1B69] dark:text-white tracking-tight leading-tight max-w-3xl mx-auto">
-            Personalize. Peça. Receba. <br className="hidden sm:block" />
-            <span className="text-slate-600 dark:text-slate-300 font-medium text-2xl md:text-3xl mt-3 block">
-              A Gráfica J2D faz para você.
-            </span>
-          </h1>
-        </div>
-      </section>
-
-      <div className="container mx-auto px-4 py-12 flex flex-col gap-12 bg-transparent">
-        {catalogData.map((section, idx) => {
-          const sectionIds = section.categories.map((c) => c.id)
-          const sectionOpenItems = openItems.filter((id) => sectionIds.includes(id))
-
-          return (
-            <section
-              key={idx}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${idx * 100}ms` }}
-            >
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-3">
-                {section.section}
-              </h2>
-              <Accordion
-                type="multiple"
-                value={sectionOpenItems}
-                onValueChange={(newValues) => {
-                  setOpenItems([
-                    ...openItems.filter((id) => !sectionIds.includes(id)),
-                    ...newValues,
-                  ])
-                }}
-                className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm"
-              >
-                {section.categories.map((cat, cIdx) => (
-                  <AccordionItem
-                    key={cIdx}
-                    value={cat.id}
-                    id={`category-${cat.id}`}
-                    className="border-b border-slate-100 dark:border-slate-800 last:border-0 px-4 md:px-6 scroll-m-24"
-                  >
-                    <AccordionTrigger className="hover:no-underline py-4 text-lg font-semibold text-slate-700 dark:text-slate-200">
-                      {cat.name}
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-6">
-                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {cat.items.map((item, iIdx) => (
-                          <Card
-                            key={iIdx}
-                            className="group overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-slate-900 rounded-xl flex flex-col"
-                          >
-                            <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
-                              <img
-                                src={item.img}
-                                alt={item.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              />
-                            </div>
-                            <CardContent className="p-5 flex flex-col flex-1">
-                              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1 line-clamp-2">
-                                {item.name}
-                              </h3>
-                              <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 font-medium mt-auto pt-2">
-                                a partir de R$ {item.price}
-                              </p>
-                              <Button className="w-full bg-[#2D1B69] hover:bg-[#43238a] text-white transition-colors">
-                                Ver mais
-                              </Button>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </section>
-          )
-        })}
       </div>
     </div>
   )
