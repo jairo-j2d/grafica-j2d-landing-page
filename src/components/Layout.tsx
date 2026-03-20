@@ -5,11 +5,14 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 import { RegistrationModal } from '@/components/RegistrationModal'
 import bgImg from '@/assets/geometric-5b34b.png'
+import logoImg from '@/assets/logo-j2d-27bae.png'
 import useMainStore from '@/stores/useMainStore'
+import { useState } from 'react'
 
 export default function Layout() {
   const { isAdmin, toggleAdmin } = useMainStore()
   const navigate = useNavigate()
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   return (
     <div className="min-h-screen flex flex-col relative bg-slate-50/50 overflow-hidden font-sans">
@@ -20,7 +23,7 @@ export default function Layout() {
 
       <header className="relative z-10 bg-white/80 backdrop-blur-md border-b border-violet-100 shadow-sm h-16 flex items-center justify-between px-4 md:px-6 shrink-0">
         <div className="flex items-center gap-2">
-          <Sheet>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden text-violet-900 mr-2">
                 <Menu className="h-5 w-5" />
@@ -33,27 +36,20 @@ export default function Layout() {
               <div className="sr-only">
                 <SheetTitle>Menu de Navegação</SheetTitle>
               </div>
-              <SidebarNav />
+              <SidebarNav onItemClick={() => setSheetOpen(false)} />
             </SheetContent>
           </Sheet>
 
-          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <img
-              src="/logo-j2d-27bae.png"
-              className="h-10 w-10 object-contain"
-              alt="Logo Gráfica J2D"
-              onError={(e) => {
-                e.currentTarget.onerror = null
-                e.currentTarget.src = '/LOGO.ico'
-              }}
-            />
-            <span className="font-bold text-xl text-violet-950 tracking-tight hidden sm:inline-block">
-              Gráfica J2D
-            </span>
+          <Link
+            to="/"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity md:hidden"
+          >
+            <img src={logoImg} className="h-9 w-9 object-contain" alt="Logo Gráfica J2D" />
+            <span className="font-bold text-lg text-violet-950 tracking-tight">Gráfica J2D</span>
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 ml-auto">
           {isAdmin ? (
             <>
               <Button
